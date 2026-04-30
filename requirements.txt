@@ -1,0 +1,21 @@
+# Core Web Framework Dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+gunicorn==23.0.0
+python-multipart==0.0.6
+websockets==12.0
+
+networkx==3.4.2
+
+tiktoken==0.9.0
+json-repair==0.46.2
+
+requests==2.32.5
+
+# Configuration & Utilities
+PyYAML==6.0.2
+pydantic==2.5.0
+nanoid==2.0.0
+dotenv==0.9.9 
+python-dotenv==1.1.1
+graspologic==3.4.4

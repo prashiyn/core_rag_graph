@@ -1,0 +1,26 @@
+---
+description: Python/FastAPI conventions for graph RAG modules
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python conventions (this repo)
+
+## Imports and structure
+
+- Prefer existing patterns: `graph.config.get_config`, `graph.utils.logger.logger`, `call_llm_api.LLMCompletionCall`.
+- Keep changes localized; match surrounding style (types, docstrings).
+
+## LLM outputs
+
+- Parse model output with **`json_repair.loads`** when JSON may be malformed.
+- **Entity resolution** (`utils/resolution.py`): model must return `{"same": [ ... ]}`—one boolean per candidate pair, same order as the prompt. Strip optional ` ```json ` fences before parse. Do not reintroduce line-based `pair N: yes` without updating both prompt and parser.
+
+## Graph / API
+
+- Graph data under `./data/graph/{user_id}/` is implied by `graph_processor` and server routes—preserve path assumptions when editing callers.
+- Pydantic response models document API fields; keep field names stable for clients.
+
+## Running
+
+- Use **uv** to run the app, e.g. `uv run uvicorn graph_server:app --host 0.0.0.0 --port 20050` (adjust if project adds scripts in `pyproject.toml`).

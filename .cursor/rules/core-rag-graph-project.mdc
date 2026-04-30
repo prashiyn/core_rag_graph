@@ -1,0 +1,33 @@
+---
+description: Core context for this graph-enhanced RAG FastAPI server (paper, stack, layout)
+alwaysApply: true
+---
+
+# Graph RAG server (core_rag_graph)
+
+## Reference
+
+- Source paper (HTML): https://arxiv.org/html/2603.25152v1  
+- Goal: FastAPI service for graph-based RAG—chunk → LLM extraction → knowledge graph, merge, community reports, retrieval-oriented prompts in config.
+
+## Stack
+
+- **Python** + **FastAPI** (`graph_server.py`), **uv** for package management (prefer `uv sync` / `uv run` once `pyproject.toml` exists; until then `uv pip install -r requirements.txt`).
+- **NetworkX** graphs; **PyYAML** config; **json-repair** for fragile LLM JSON.
+
+## Layout (high level)
+
+| Area | Role |
+|------|------|
+| `graph_server.py` | HTTP API, WebSocket progress, wires `kt_gen`, `graph_processor` |
+| `utils/kt_gen.py` | `KTBuilder`—construction prompts, triples, graph build |
+| `utils/graph_processor.py` | Load/save/merge graphs, `update_graph`, community hook |
+| `utils/resolution.py` | `LLMEntityResolver`—candidate pairs + LLM JSON `{"same":[bool,...]}` |
+| `utils/community_reports.py` | Leiden + LLM community / attribute reports |
+| `config/base_config.yaml` | Datasets, prompts slots, retrieval flags |
+| `config/prompt_templates.py` | Shared prompt strings (`construction_prompt_*`, community prompts) |
+
+## Product defaults
+
+- **English-first**: prompts and user-facing strings stay English; avoid `zh`/legacy locale naming in new code.
+- **LLM ↔ parser contracts**: changing a prompt’s output shape requires updating the matching parser (e.g. entity resolution must return JSON `same` array aligned with pair order).
