@@ -88,9 +88,7 @@ class CommunityReportsExtractor:
         if config is None:
             config = get_config()
         """Init method definition."""
-        self._llm_client = call_llm_api.LLMCompletionCall(config.construction.LLM_MODEL,
-                                                         config.construction.LLM_BASE_URL,
-                                                         config.construction.LLM_API_KEY)
+        self._llm_client = call_llm_api.LLMCompletionCall(use_case="community_cluster_report")
         self._config = config
         self._extraction_prompt = COMMUNITY_REPORT_PROMPT
         self._max_report_length = max_report_length or 1500
@@ -151,7 +149,7 @@ class CommunityReportsExtractor:
             else:
                 user_content = ATTRIBUTE_PROMPT + "\n\n" + "Input:\n" + f"entities = {json.dumps(entities, ensure_ascii=False)}\n" + f'attribute = "{attribute}"'
 
-            response = self._llm_client.call_api(user_content)
+            response = self._llm_client.call_api(user_content, use_case="community_attribute_report")
             extract_report_from_response(response, entities)
 
         def extract_community_report(community):
@@ -209,7 +207,7 @@ class CommunityReportsExtractor:
             if context:
                 text += f"\n\nRelated context:\n{context}"
 
-            response = self._llm_client.call_api(text)
+            response = self._llm_client.call_api(text, use_case="community_cluster_report")
             extract_report_from_response(response, ents)
 
         attribute_comm = {}

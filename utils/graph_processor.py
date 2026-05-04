@@ -6,9 +6,21 @@ import networkx as nx
 from graph.utils.logger import logger
 from graph.utils.community_reports import CommunityReportsExtractor
 from graph.utils.resolution import LLMEntityResolver
+from graph.utils.collection_id_scope import (
+    resolve_graph_json_path,
+    to_external_collection_id,
+)
 
 
 GRAPH_FIELD_SEP = "<SEP>"
+OP_METRICS = {
+    "merge_conflicts_total": 0,
+    "failed_resolutions_total": 0,
+}
+
+
+def get_operational_metrics() -> dict:
+    return dict(OP_METRICS)
 
 def generate_subgraph(relationships: list) -> nx.MultiDiGraph:
     """
@@ -275,14 +287,17 @@ def save_graph_to_graphml(graph: nx.MultiDiGraph, output_path: str):
     nx.write_graphml(graph_copy, output_path)
 
 
-def delete_file(user_id: str, kb_name: str, file_name: str):
+def delete_file(collection_id: str, file_name: str):
     to_remove_nodes = []
     graph = None
 
     file_path = Path(file_name)
-    graph_path = f"./data/graph/{user_id}/{kb_name}.json"
-    if os.path.exists(graph_path):
-        graph = load_graph(graph_path)
+    internal_graph_path = f"./data/graph/{collection_id}.json"
+    load_path = resolve_graph_json_path("./data/graph", collection_id)
+    if load_path is None:
+        load_path = internal_graph_path
+    if os.path.exists(load_path):
+        graph = load_graph(load_path)
 
     if graph is not None:
         for node_name, attr in graph.nodes(data=True):
@@ -298,14 +313,18 @@ def delete_file(user_id: str, kb_name: str, file_name: str):
         for node_degree in graph.degree:
             graph.nodes[str(node_degree[0])]["rank"] = int(node_degree[1])
 
-        save_graph(graph, graph_path)
+        save_graph(graph, internal_graph_path)
+        if load_path != internal_graph_path and os.path.exists(load_path):
+            os.remove(load_path)
 
     return graph
 
-def delete_kb(user_id: str, kb_name: str):
-    graph_path = f"./data/graph/{user_id}/{kb_name}.json"
-    if os.path.exists(graph_path):
-        os.remove(graph_path)
+def delete_collection(collection_id: str):
+    internal_path = f"./data/graph/{collection_id}.json"
+    legacy_path = f"./data/graph/{to_external_collection_id(collection_id)}.json"
+    for graph_path in {internal_path, legacy_path}:
+        if os.path.exists(graph_path):
+            os.remove(graph_path)
 
 
 def graph_merge(g1: nx.MultiDiGraph, g2: nx.MultiDiGraph):
@@ -331,11 +350,18 @@ def graph_merge(g1: nx.MultiDiGraph, g2: nx.MultiDiGraph):
 
 def merge_subgraph(
     subgraph: nx.MultiDiGraph,
-    old_graph_path: str
-):
-    # Load existing graph if present
-    if os.path.exists(old_graph_path):
-        old_graph = load_graph(old_graph_path)
+    save_graph_path: str,
+    load_graph_path: str | None = None,
+) -> nx.MultiDiGraph:
+    """Merge ``subgraph`` into an existing graph loaded from disk, then save to ``save_graph_path``."""
+    source_path = None
+    if load_graph_path and os.path.exists(load_graph_path):
+        source_path = load_graph_path
+    elif os.path.exists(save_graph_path):
+        source_path = save_graph_path
+
+    if source_path and os.path.exists(source_path):
+        old_graph = load_graph(source_path)
         if old_graph is not None:
             logger.info("Merge with an exiting graph...................")
             new_graph = graph_merge(old_graph, subgraph)
@@ -347,7 +373,9 @@ def merge_subgraph(
     for node_name, pagerank in pr.items():
         new_graph.nodes[node_name]["pagerank"] = pagerank
 
-    save_graph(new_graph, old_graph_path)
+    save_graph(new_graph, save_graph_path)
+    if source_path and source_path != save_graph_path and os.path.exists(source_path):
+        os.remove(source_path)
 
     return new_graph
 
@@ -371,19 +399,26 @@ def extract_community(graph, config):
     return reports
 
 
-def update_graph(user_id:str, kb_name: str, file_name: str, relationships: list, config):
+def update_graph(collection_id: str, file_name: str, relationships: list, config):
     # =========== build subgraph ============
     subgraph = generate_subgraph(relationships)
 
     # =========== merge subgraph ============
-    old_file_path = f"./data/graph/{user_id}/{kb_name}.json"
+    internal_file_path = f"./data/graph/{collection_id}.json"
+    load_path = resolve_graph_json_path("./data/graph", collection_id)
 
-    if os.path.exists(old_file_path):
-        old_graph = load_graph(old_file_path)
+    if load_path:
+        old_graph = load_graph(load_path)
         if old_graph is not None:
             logger.info("resolution graph...................")
-            resolver = LLMEntityResolver(config)
-            name_mapping = resolver.resolve_by_name_and_llm(old_graph, subgraph)
+            try:
+                resolver = LLMEntityResolver(config)
+                name_mapping = resolver.resolve_by_name_and_llm(old_graph, subgraph)
+            except Exception as e:
+                OP_METRICS["failed_resolutions_total"] += 1
+                logger.error(f"resolution graph failed, fallback to direct merge: {e}")
+                name_mapping = {}
+            OP_METRICS["merge_conflicts_total"] += len(name_mapping)
             logger.info(f"resolution graph, name mapping: {name_mapping}")
 
             for relationship in relationships:
@@ -395,7 +430,7 @@ def update_graph(user_id:str, kb_name: str, file_name: str, relationships: list,
                     relationship["end_node"]["properties"]["name"] = name_mapping[end_name]
 
     subgraph = generate_subgraph(relationships)
-    new_graph = merge_subgraph(subgraph, old_file_path)
+    new_graph = merge_subgraph(subgraph, internal_file_path, load_path)
 
     return new_graph
 

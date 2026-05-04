@@ -41,9 +41,7 @@ class LLMEntityResolver:
         if config is None:
             config = get_config()
         """Init method definition."""
-        self._llm_client = call_llm_api.LLMCompletionCall(config.construction.LLM_MODEL,
-                                                          config.construction.LLM_BASE_URL,
-                                                          config.construction.LLM_API_KEY)
+        self._llm_client = call_llm_api.LLMCompletionCall(use_case="entity_resolution")
 
     def resolve_by_name_and_llm(
             self,

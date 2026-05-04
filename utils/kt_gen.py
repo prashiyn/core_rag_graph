@@ -32,10 +32,10 @@ class KTBuilder:
         self.datasets_no_chunk = config.construction.datasets_no_chunk
         self.token_len = 0
         self.lock = threading.Lock()
-        self.llm_client = call_llm_api.LLMCompletionCall(config.construction.LLM_MODEL,
-                                                         config.construction.LLM_BASE_URL,
-                                                         config.construction.LLM_API_KEY,
-                                                         config.construction.TEMPERATURE)
+        self.llm_client = call_llm_api.LLMCompletionCall(
+            temperature=config.construction.TEMPERATURE,
+            use_case="construction_extraction",
+        )
         self.all_chunks = {}
         self.embedding_model = embedding_model
         self.mode = mode or config.construction.mode

@@ -1,0 +1,1518 @@
+{
+  "components": {
+    "schemas": {
+      "ChunkInput": {
+        "properties": {
+          "bundle_id": {
+            "description": "Semantic bundle id",
+            "title": "Bundle Id",
+            "type": "string"
+          },
+          "chunk_id": {
+            "description": "Stable chunk identifier",
+            "title": "Chunk Id",
+            "type": "string"
+          },
+          "content": {
+            "description": "Chunk text, table, or image description",
+            "title": "Content",
+            "type": "string"
+          },
+          "doc_id": {
+            "description": "Document id",
+            "title": "Doc Id",
+            "type": "string"
+          },
+          "next_chunk": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Next chunk id",
+            "title": "Next Chunk"
+          },
+          "page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Source page when available",
+            "title": "Page"
+          },
+          "prev_chunk": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Previous chunk id",
+            "title": "Prev Chunk"
+          },
+          "publish_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Document publish date if provided",
+            "title": "Publish Date"
+          },
+          "section_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Nearest section heading",
+            "title": "Section Title"
+          },
+          "title_summary": {
+            "default": "",
+            "description": "LLM section summary",
+            "title": "Title Summary",
+            "type": "string"
+          },
+          "type": {
+            "description": "One of text, table, image",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "chunk_id",
+          "content",
+          "type",
+          "doc_id",
+          "bundle_id"
+        ],
+        "title": "ChunkInput",
+        "type": "object"
+      },
+      "CollectionListResponse": {
+        "properties": {
+          "collections": {
+            "items": {
+              "$ref": "#/components/schemas/CollectionMetadata"
+            },
+            "title": "Collections",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "collections"
+        ],
+        "title": "CollectionListResponse",
+        "type": "object"
+      },
+      "CollectionMetadata": {
+        "properties": {
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string"
+          },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "updated_at": {
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection_id",
+          "name",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CollectionMetadata",
+        "type": "object"
+      },
+      "CollectionResponse": {
+        "properties": {
+          "collection": {
+            "$ref": "#/components/schemas/CollectionMetadata"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "collection"
+        ],
+        "title": "CollectionResponse",
+        "type": "object"
+      },
+      "CollectionScopedRequest": {
+        "properties": {
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection_id"
+        ],
+        "title": "CollectionScopedRequest",
+        "type": "object"
+      },
+      "CommunityReportsRequest": {
+        "properties": {
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection_id"
+        ],
+        "title": "CommunityReportsRequest",
+        "type": "object"
+      },
+      "CommunityReportsResponse": {
+        "description": "Fields for res_data-style API responses.",
+        "properties": {
+          "community_reports": {
+            "default": [],
+            "items": {
+              "type": "object"
+            },
+            "title": "Community Reports",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "CommunityReportsResponse",
+        "type": "object"
+      },
+      "DeleteFileRequest": {
+        "properties": {
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "file_name": {
+            "title": "File Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection_id",
+          "file_name"
+        ],
+        "title": "DeleteFileRequest",
+        "type": "object"
+      },
+      "ExtracGraphDataResponse": {
+        "description": "Fields for res_data-style API responses.",
+        "properties": {
+          "community_reports": {
+            "default": [],
+            "items": {
+              "type": "object"
+            },
+            "title": "Community Reports",
+            "type": "array"
+          },
+          "graph_chunks": {
+            "default": [],
+            "items": {
+              "type": "object"
+            },
+            "title": "Graph Chunks",
+            "type": "array"
+          },
+          "graph_vocabulary_set": {
+            "default": [],
+            "items": {},
+            "title": "Graph Vocabulary Set",
+            "type": "array",
+            "uniqueItems": true
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "ExtracGraphDataResponse",
+        "type": "object"
+      },
+      "GetCollectionByIdRequest": {
+        "properties": {
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "collection_id"
+        ],
+        "title": "GetCollectionByIdRequest",
+        "type": "object"
+      },
+      "GetGraphRequest": {
+        "properties": {
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "kb_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kb Id"
+          }
+        },
+        "required": [
+          "collection_id"
+        ],
+        "title": "GetGraphRequest",
+        "type": "object"
+      },
+      "GetOrCreateCollectionRequest": {
+        "properties": {
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "required": [
+          "collection_id"
+        ],
+        "title": "GetOrCreateCollectionRequest",
+        "type": "object"
+      },
+      "GraphDataResponse": {
+        "description": "Fields for res_data-style API responses.",
+        "properties": {
+          "graph_data": {
+            "title": "Graph Data",
+            "type": "object"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "graph_data"
+        ],
+        "title": "GraphDataResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "IngestChunksRequest": {
+        "properties": {
+          "chunks": {
+            "items": {
+              "$ref": "#/components/schemas/ChunkInput"
+            },
+            "title": "Chunks",
+            "type": "array"
+          },
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "file_name": {
+            "title": "File Name",
+            "type": "string"
+          },
+          "schema": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Schema"
+          },
+          "temperature": {
+            "default": 0.001,
+            "title": "Temperature",
+            "type": "number"
+          }
+        },
+        "required": [
+          "collection_id",
+          "chunks",
+          "file_name"
+        ],
+        "title": "IngestChunksRequest",
+        "type": "object"
+      },
+      "QueryRequest": {
+        "properties": {
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "temperature": {
+            "default": 0.001,
+            "title": "Temperature",
+            "type": "number"
+          },
+          "top_k": {
+            "default": 10,
+            "title": "Top K",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "collection_id",
+          "question"
+        ],
+        "title": "QueryRequest",
+        "type": "object"
+      },
+      "QueryResponse": {
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "chunk_evidence": {
+            "default": [],
+            "items": {
+              "type": "object"
+            },
+            "title": "Chunk Evidence",
+            "type": "array"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "question",
+          "collection_id",
+          "answer",
+          "evidence"
+        ],
+        "title": "QueryResponse",
+        "type": "object"
+      },
+      "RequestResponse": {
+        "description": "Fields for res_data-style API responses.",
+        "properties": {
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "RequestResponse",
+        "type": "object"
+      },
+      "RetrieveRequest": {
+        "properties": {
+          "client_id": {
+            "default": "default",
+            "title": "Client Id",
+            "type": "string"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "top_k": {
+            "default": 10,
+            "title": "Top K",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "collection_id",
+          "query"
+        ],
+        "title": "RetrieveRequest",
+        "type": "object"
+      },
+      "RetrieveResponse": {
+        "properties": {
+          "chunk_evidence": {
+            "default": [],
+            "items": {
+              "type": "object"
+            },
+            "title": "Chunk Evidence",
+            "type": "array"
+          },
+          "collection_id": {
+            "title": "Collection Id",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "type": "object"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message",
+          "query",
+          "collection_id",
+          "evidence"
+        ],
+        "title": "RetrieveResponse",
+        "type": "object"
+      },
+      "TestPostRequest": {
+        "properties": {
+          "payload": {
+            "title": "Payload",
+            "type": "object"
+          }
+        },
+        "title": "TestPostRequest",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "graph Unified Interface",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/collections": {
+      "get": {
+        "description": "Canonical endpoint: list all collections.",
+        "operationId": "get_all_collections_api_collections_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get All Collections"
+      },
+      "post": {
+        "description": "Canonical REST endpoint: create collection metadata.",
+        "operationId": "create_collection_canonical_api_collections_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetOrCreateCollectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Collection Canonical"
+      }
+    },
+    "/api/collections/get-or-create": {
+      "post": {
+        "description": "Canonical endpoint: get existing collection or create it.",
+        "operationId": "get_or_create_collection_canonical_api_collections_get_or_create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetOrCreateCollectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Or Create Collection Canonical"
+      }
+    },
+    "/api/collections/{collection_id}": {
+      "delete": {
+        "description": "Canonical REST endpoint: delete collection by id.",
+        "operationId": "delete_collection_rest_api_collections__collection_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "collection_id",
+            "required": true,
+            "schema": {
+              "title": "Collection Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Collection Rest"
+      },
+      "get": {
+        "description": "Canonical endpoint: get collection metadata by id.",
+        "operationId": "get_collection_metadata_api_collections__collection_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "collection_id",
+            "required": true,
+            "schema": {
+              "title": "Collection Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Collection Metadata"
+      }
+    },
+    "/api/delete_collection": {
+      "post": {
+        "description": "delete collection graph",
+        "operationId": "delete_collection_api_delete_collection_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionScopedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtracGraphDataResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Collection"
+      }
+    },
+    "/api/delete_file": {
+      "post": {
+        "description": "update graph",
+        "operationId": "delete_file_api_delete_file_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteFileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtracGraphDataResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete File"
+      }
+    },
+    "/api/delete_kb": {
+      "post": {
+        "description": "Legacy alias for delete_collection.",
+        "operationId": "delete_kb_api_delete_kb_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionScopedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtracGraphDataResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Kb"
+      }
+    },
+    "/api/extrac_graph_data": {
+      "post": {
+        "description": "Legacy route: ingest chunk list and build/merge graph.",
+        "operationId": "extrac_graph_data_api_extrac_graph_data_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestChunksRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtracGraphDataResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Extrac Graph Data"
+      }
+    },
+    "/api/generate_community_reports": {
+      "post": {
+        "description": "extrac_graph_data endpoint  chunks: List[Dict], client_id: str = 'default'",
+        "operationId": "generate_community_reports_api_generate_community_reports_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunityReportsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityReportsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate Community Reports"
+      }
+    },
+    "/api/get-all-collections": {
+      "get": {
+        "operationId": "get_all_colecctions_api_get_all_collections_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get All Colecctions"
+      }
+    },
+    "/api/get-collection-metadata-by-collection-id": {
+      "post": {
+        "operationId": "get_collection_metadata_by_collection_id_api_get_collection_metadata_by_collection_id_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetCollectionByIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Collection Metadata By Collection Id"
+      }
+    },
+    "/api/get-or-create-collection": {
+      "post": {
+        "operationId": "get_or_create_collection_api_get_or_create_collection_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetOrCreateCollectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Or Create Collection"
+      }
+    },
+    "/api/getAllColecctions": {
+      "get": {
+        "description": "Legacy alias for get-all-collections.",
+        "operationId": "get_all_colecctions_legacy_api_getAllColecctions_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get All Colecctions Legacy"
+      }
+    },
+    "/api/getCollectionMetadataByCollectionId": {
+      "post": {
+        "description": "Legacy alias for get-collection-metadata-by-collection-id.",
+        "operationId": "get_collection_metadata_by_collection_id_legacy_api_getCollectionMetadataByCollectionId_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetCollectionByIdRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Collection Metadata By Collection Id Legacy"
+      }
+    },
+    "/api/getOrCreateCollection": {
+      "post": {
+        "description": "Legacy alias for get-or-create-collection.",
+        "operationId": "get_or_create_collection_legacy_api_getOrCreateCollection_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetOrCreateCollectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Or Create Collection Legacy"
+      }
+    },
+    "/api/get_community_reports": {
+      "post": {
+        "operationId": "get_community_reports_api_get_community_reports_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CollectionScopedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityReportsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Community Reports"
+      }
+    },
+    "/api/get_kb_graph_data": {
+      "post": {
+        "description": "get graph data",
+        "operationId": "get_kb_graph_data_api_get_kb_graph_data_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetGraphRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraphDataResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Kb Graph Data"
+      }
+    },
+    "/api/ingest_chunks": {
+      "post": {
+        "description": "Canonical chunk ingestion endpoint for Graph RAG construction.",
+        "operationId": "ingest_chunks_api_ingest_chunks_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestChunksRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtracGraphDataResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ingest Chunks"
+      }
+    },
+    "/api/metrics": {
+      "get": {
+        "operationId": "get_metrics_api_metrics_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Metrics"
+      }
+    },
+    "/api/query": {
+      "post": {
+        "operationId": "query_api_query_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Query"
+      }
+    },
+    "/api/retrieve": {
+      "post": {
+        "operationId": "retrieve_api_retrieve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrieveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrieveResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Retrieve"
+      }
+    },
+    "/api/test": {
+      "get": {
+        "description": "test",
+        "operationId": "test_api_test_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Test"
+      }
+    },
+    "/api/test_post": {
+      "post": {
+        "description": "test post",
+        "operationId": "test_post_api_test_post_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestPostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Test Post"
+      }
+    }
+  }
+}

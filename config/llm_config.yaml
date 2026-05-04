@@ -1,0 +1,47 @@
+service:
+  base_url: "http://localhost:8080"
+  completion_path: "/llm/complete"
+  timeout_seconds: 60
+  max_retries: 3
+  retry_backoff_seconds: 1.5
+
+default_use_case: "query_answering"
+
+use_cases:
+  construction_extraction:
+    description: "Extract entities, attributes, and triples from incoming chunks during graph construction."
+    provider: "openai"
+    model: null
+    reasoning_effort: null
+    response_format: null
+
+  entity_resolution:
+    description: "Decide whether candidate node pairs refer to the same entity/attribute for graph merge deduplication."
+    provider: "openai"
+    model: null
+    reasoning_effort: "low"
+    response_format:
+      type: "json_object"
+
+  community_attribute_report:
+    description: "Generate structured JSON reports for attribute-centric communities (attribute plus related entities)."
+    provider: "openai"
+    model: null
+    reasoning_effort: "medium"
+    response_format:
+      type: "json_object"
+
+  community_cluster_report:
+    description: "Generate structured JSON reports for graph cluster communities discovered by Leiden clustering."
+    provider: "openai"
+    model: null
+    reasoning_effort: "medium"
+    response_format:
+      type: "json_object"
+
+  query_answering:
+    description: "Generate final natural-language answers for user questions using retrieved graph context."
+    provider: "openai"
+    model: null
+    reasoning_effort: null
+    response_format: null

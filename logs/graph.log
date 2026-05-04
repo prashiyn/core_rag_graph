@@ -1,0 +1,40 @@
+[2026-04-30 16:20:40] INFO     logging_config:13 - Logging initialized
+[2026-04-30 16:20:40] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-04-30 16:20:40] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-04-30 16:20:40] INFO     graph_server:78 - Graph repository backend: networkx
+[2026-04-30 16:25:58] INFO     logging_config:13 - Logging initialized
+[2026-04-30 16:25:58] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-04-30 16:25:58] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-04-30 16:25:58] INFO     graph_server:78 - Graph repository backend: networkx
+[2026-04-30 16:26:06] INFO     logging_config:13 - Logging initialized
+[2026-04-30 16:26:06] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-04-30 16:26:06] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-04-30 16:26:06] INFO     graph_server:78 - Graph repository backend: networkx
+[2026-04-30 17:37:21] INFO     logging_config:13 - Logging initialized
+[2026-04-30 17:37:21] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-04-30 17:37:21] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-04-30 17:37:21] INFO     graph_server:78 - Graph repository backend: networkx
+[2026-04-30 17:37:35] INFO     logging_config:13 - Logging initialized
+[2026-04-30 17:37:35] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-04-30 17:37:35] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-04-30 17:37:35] INFO     graph_server:78 - Graph repository backend: networkx
+[2026-05-04 22:29:38] INFO     logging_config:13 - Logging initialized
+[2026-05-04 22:29:38] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-05-04 22:29:38] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-05-04 22:29:38] INFO     graph_server:81 - Graph repository backend: networkx
+[2026-05-04 22:34:38] INFO     logging_config:13 - Logging initialized
+[2026-05-04 22:34:38] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-05-04 22:34:38] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-05-04 22:34:38] INFO     graph_server:81 - Graph repository backend: networkx
+[2026-05-04 22:35:07] INFO     logging_config:13 - Logging initialized
+[2026-05-04 22:35:07] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-05-04 22:35:07] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-05-04 22:35:07] INFO     graph_server:81 - Graph repository backend: networkx
+[2026-05-04 22:47:57] INFO     logging_config:13 - Logging initialized
+[2026-05-04 22:47:57] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-05-04 22:47:57] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-05-04 22:47:57] INFO     graph_server:81 - Graph repository backend: networkx
+[2026-05-04 22:48:29] INFO     logging_config:13 - Logging initialized
+[2026-05-04 22:48:29] WARNING  config_loader:185 - Corpus path not found for demo: data/demo/demo_corpus.json
+[2026-05-04 22:48:29] INFO     config_loader:141 - Configuration loaded successfully from /media/prashanth/extmnt1/common/core_rag_graph/config/base_config.yaml
+[2026-05-04 22:48:29] INFO     graph_server:81 - Graph repository backend: networkx

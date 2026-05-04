@@ -1,0 +1,26 @@
+# Sent as Docker build context before `COPY . .` — exclude heavy / local-only paths.
+
+.venv/
+venv/
+
+.git/
+.github/
+.cursor/
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+
+*.egg-info/
+dist/
+build/
+
+.env
+.env.local
+
+# Runtime graph JSON (compose bind-mounts ./db/core_rag_graph/data in production)
+data/

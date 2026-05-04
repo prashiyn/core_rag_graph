@@ -18,7 +18,7 @@ alwaysApply: false
 
 ## Graph / API
 
-- Graph data under `./data/graph/{user_id}/` is implied by `graph_processor` and server routes—preserve path assumptions when editing callers.
+- Graph data is collection-scoped under `./data/graph/{collection_id}.json`; preserve this path contract when editing callers.
 - Pydantic response models document API fields; keep field names stable for clients.
 
 ## Running
