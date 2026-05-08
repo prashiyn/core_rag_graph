@@ -32,13 +32,13 @@ def _load_llm_config() -> Dict[str, Any]:
 
 def _resolve_service_config(llm_config: Dict[str, Any]) -> Dict[str, Any]:
     service = llm_config.get("service", {}) or {}
-    base_url = os.getenv("DOC_PROCESSING_BASE_URL", str(service.get("base_url", "")).strip())
+    base_url = os.getenv("LLM_SERVICE_BASE_URL", str(service.get("base_url", "")).strip())
     completion_path = str(service.get("completion_path", "/llm/complete"))
     timeout_seconds = int(service.get("timeout_seconds", 60))
     max_retries = int(service.get("max_retries", 3))
     retry_backoff_seconds = float(service.get("retry_backoff_seconds", 1.5))
     if not base_url:
-        raise ValueError("doc processing base URL is required in llm_config.yaml or DOC_PROCESSING_BASE_URL")
+        raise ValueError("doc processing base URL is required in llm_config.yaml or LLM_SERVICE_BASE_URL")
     return {
         "base_url": base_url.rstrip("/"),
         "completion_path": completion_path,

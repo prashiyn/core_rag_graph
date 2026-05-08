@@ -19,7 +19,7 @@ cp .env.example .env
 Edit `.env` for your backend:
 
 - `GRAPH_BACKEND=networkx` (default) or `GRAPH_BACKEND=neo4j`
-- Doc processing LLM gateway: `DOC_PROCESSING_BASE_URL`
+- Doc processing LLM gateway: `LLM_SERVICE_BASE_URL`
 - Optional LLM config path override: `LLM_CONFIG_PATH`
 
 ### 3) Neo4j quickstart (optional)
