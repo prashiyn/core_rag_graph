@@ -1,3 +1,9 @@
+# Moved
+
+This service now lives in the [common_rag](https://github.com/prashiyn/common_rag) monorepo under `core_rag_graph/`.
+
+---
+
 # core_rag_graph
 
 Graph-enhanced RAG FastAPI service based on [arXiv:2603.25152v1](https://arxiv.org/html/2603.25152v1).
